@@ -61,11 +61,15 @@ CATEGORY_MAP = {
 
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model(MODEL_PATH)
-    with open(CLASS_NAMES_PATH) as f:
-        class_names = json.load(f)
-    return model, class_names
+    model = tf.keras.models.load_model(
+        MODEL_PATH,
+        compile=False
+    )
 
+    with open(CLASS_NAMES_PATH, "r") as f:
+        class_names = json.load(f)
+
+    return model, class_names
 def load_history():
     try:
         with open(HISTORY_PATH) as f:
